@@ -1,0 +1,1 @@
+/raw_data/2011_09_26_drive_0002_sync_image_0000000005_image_02.png /data_depth_annotated/2011_09_26_drive_0002_sync_groundtruth_depth_0000000005_image_02.png
