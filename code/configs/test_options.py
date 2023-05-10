@@ -3,7 +3,7 @@ from configs.base_options import BaseOptions
 class TestOptions(BaseOptions):
     def initialize(self):
         parser = BaseOptions.initialize(self)
-        parser.add_argument('--result_dir', type=str, default='./results',
+        parser.add_argument('--result_dir', type=str, default='./results/',
                             help='save result images into result_dir/exp_name')
         parser.add_argument('--ckpt_dir',   type=str,
                             default='./ckpt/best_model_kitti.ckpt', 
