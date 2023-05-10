@@ -17,3 +17,10 @@ $ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_d
 
 If --do_evaluate --> returns metrics
 If --save_visualize --> save depth maps
+
+
+#### Activate environment
+create environment https://scitas-data.epfl.ch/confluence/display/DOC/Python+Virtual+Environments
+```
+$ source venvs/depth_env/bin/activate
+```
