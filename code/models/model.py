@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from mmcv.runner import load_checkpoint
+#from mmcv.runner import load_checkpoint
 from models.mit import mit_b4
 
 class GLPDepth(nn.Module):
