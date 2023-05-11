@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --chdir /scratch/izar/rjunod/DLAV_DepthEstim
+#SBATCH --chdir /scratch/izar/abegueli/DLAV_DepthEstim
 #SBATCH --nodes 1
 #SBATCH --ntasks 1
 #SBATCH --cpus-per-task 1
@@ -9,5 +9,5 @@
 #SBATCH --qos dlav
 #SBATCH --account civil-459-2023
 
-source venvs/venv-for-demo/bin/activate
+source venvs/depth_env/bin/activate
 $ python ./code/train.py --dataset DrivingStereo --data_path ../../../work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --crop_h 352 --crop_w 704
