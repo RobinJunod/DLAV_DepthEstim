@@ -55,6 +55,9 @@ def main():
         dataset_kwargs['crop_size'] = (448, 576)
     elif args.dataset == 'kitti':
         dataset_kwargs['crop_size'] = (352, 704)
+    elif args.dataset == 'DrivingStereo':
+        # Put same cropsize has kitti (maybe change it)
+        dataset_kwargs['crop_size'] = (352, 704)
     else:
         dataset_kwargs['crop_size'] = (args.crop_h, args.crop_w)
 
@@ -141,8 +144,10 @@ def validate(val_loader, model, criterion_d, device, epoch, args, log_dir):
     model.eval()
 
     if args.save_model:
-        torch.save(model.state_dict(), os.path.join(
-            log_dir, 'epoch_%02d_model.ckpt' % epoch))
+        # Save weight each 10 epochs
+        if epoch % 10 == 0:
+            torch.save(model.state_dict(), os.path.join(
+                log_dir, 'epoch_%02d_model.ckpt' % epoch))
 
     result_metrics = {}
     for metric in metric_name:

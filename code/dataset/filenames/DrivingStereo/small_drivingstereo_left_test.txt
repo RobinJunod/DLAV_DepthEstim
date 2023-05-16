@@ -1,0 +1,11 @@
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-08-769.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-08-769.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-070.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-070.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-270.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-270.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-570.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-570.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-670.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-09-670.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-10-370.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-10-370.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-10-570.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-10-570.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-11-468.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-11-468.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-12-268.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-12-268.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-22-775.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-22-775.png
+/test/test-left-image/left-image-half-size/2018-07-11-14-48-52_2018-07-11-14-50-33-483.jpg /test/test-depth-map/depth-map-half-size/2018-07-11-14-48-52_2018-07-11-14-50-33-483.png

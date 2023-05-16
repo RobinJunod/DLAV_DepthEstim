@@ -18,6 +18,4 @@ class TrainOptions(BaseOptions):
         parser.add_argument('--save_model', action='store_true')        
         parser.add_argument('--save_result', action='store_true')
 
-        
-        
         return parser

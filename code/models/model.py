@@ -14,6 +14,7 @@ class GLPDepth(nn.Module):
             ckpt_path = './code/models/weights/mit_b4.pth'
             try:
                 load_checkpoint(self.encoder, ckpt_path, logger=None)
+                print('=========== Weights have been loaded ==========')
             except:
                 import gdown
                 print("Download pre-trained encoder weights...")
