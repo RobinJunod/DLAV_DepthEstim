@@ -3,9 +3,12 @@ Estimation of depth using the GLPDepth code and the drivingstereo dataset.
 The inital code GLPDepth was firstly trained on nyudepth which contains indoor imagers. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the dataaugmenetation parameters.
 Description of the dataset, label format, where/how to acquire it.
 
+##### Data DrivingStereo
+We trained our model using the Driving stero dataset in odrer to take advantage of the large number of sample this dataset has. We have then test our model on the kitti dataset. 
 What data do I need
 to train your model? How do I get it? In what shape?
-
+##### Problem faced
+We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue we tuned the learning rate, and the learning rate scheduler. 
 
 #### Training
 ```
