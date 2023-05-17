@@ -8,8 +8,8 @@
 #SBATCH --gres gpu:1
 #SBATCH --qos dlav
 #SBATCH --account civil-459-2023
-#SBATCH --time=2:00:00
+#SBATCH --time=12:00:00
 
 source ../venvs/depth_env/bin/activate
 
-python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --workers 1 --lr 0.00015 --epochs 100 --save_model --workers 4 
+python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --lr 0.0001 --epochs 20 --save_model --workers 4 

@@ -57,7 +57,8 @@ def main():
         dataset_kwargs['crop_size'] = (352, 704)
     elif args.dataset == 'DrivingStereo':
         # Put same cropsize has kitti (maybe change it)
-        dataset_kwargs['crop_size'] = (352, 704)
+        dataset_kwargs['crop_size'] = (352, 704) # work good with this cropping
+        #dataset_kwargs['crop_size'] = (288, 576)
     else:
         dataset_kwargs['crop_size'] = (args.crop_h, args.crop_w)
 
@@ -73,6 +74,8 @@ def main():
     # Training settings
     criterion_d = SiLogLoss()
     optimizer = optim.Adam(model.parameters(), args.lr)
+    # TODO: Adding the lr scheduler
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)  # add this line
 
     global global_step
     global_step = 0
@@ -83,6 +86,7 @@ def main():
         loss_train = train(train_loader, model, criterion_d, optimizer=optimizer, 
                            device=device, epoch=epoch, args=args)
         writer.add_scalar('Training loss', loss_train, epoch)
+        scheduler.step()  # TODO : Test if the scheduler works
 
         if epoch % args.val_freq == 0:
             results_dict, loss_val = validate(val_loader, model, criterion_d, 
@@ -107,19 +111,19 @@ def train(train_loader, model, criterion_d, optimizer, device, epoch, args):
     global global_step
     model.train()
     depth_loss = logging.AverageMeter()
-    half_epoch = args.epochs // 2
+    # half_epoch = args.epochs // 2
 
     for batch_idx, batch in enumerate(train_loader):      
         global_step += 1
-
-        for param_group in optimizer.param_groups:
-            if global_step < 2019 * half_epoch:
-                current_lr = (1e-4 - 3e-5) * (global_step /
-                                              2019/half_epoch) ** 0.9 + 3e-5
-            else:
-                current_lr = (3e-5 - 1e-4) * (global_step /
-                                              2019/half_epoch - 1) ** 0.9 + 1e-4
-            param_group['lr'] = current_lr
+        # TODO : create a better lr scheduler
+        # for param_group in optimizer.param_groups:
+        #     if global_step < 2019 * half_epoch:
+        #         current_lr = (1e-4 - 3e-5) * (global_step /
+        #                                       2019/half_epoch) ** 0.9 + 3e-5
+        #     else:
+        #         current_lr = (3e-5 - 1e-4) * (global_step /
+        #                                       2019/half_epoch - 1) ** 0.9 + 1e-4
+        #     param_group['lr'] = current_lr
 
         input_RGB = batch['image'].to(device)
         depth_gt = batch['depth'].to(device)
@@ -129,11 +133,16 @@ def train(train_loader, model, criterion_d, optimizer, device, epoch, args):
         optimizer.zero_grad()
         loss_d = criterion_d(preds['pred_d'].squeeze(), depth_gt)
         depth_loss.update(loss_d.item(), input_RGB.size(0))
+        
+        # Compute the gard of the loss
         loss_d.backward()
-
+        # Clip the gradients
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1)
+        
         logging.progress_bar(batch_idx, len(train_loader), args.epochs, epoch,
                             ('Depth Loss: %.4f (%.4f)' %
                             (depth_loss.val, depth_loss.avg)))
+        # Step optimizer
         optimizer.step()
 
     return loss_d
@@ -144,7 +153,7 @@ def validate(val_loader, model, criterion_d, device, epoch, args, log_dir):
     model.eval()
 
     if args.save_model:
-        # Save weight each 10 epochs
+        # Save weight each 2 epochs
         if epoch % 10 == 0:
             torch.save(model.state_dict(), os.path.join(
                 log_dir, 'epoch_%02d_model.ckpt' % epoch))
