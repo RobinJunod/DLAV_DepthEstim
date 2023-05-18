@@ -9,7 +9,7 @@ class BaseOptions():
         parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
         # base configs
         parser.add_argument('--gpu_or_cpu',   type=str, default='gpu')
-        parser.add_argument('--data_path',    type=str, default='../../../work/scitas-share/datasets/Vita/civil-459/')
+        parser.add_argument('--data_path',    type=str, default='D:/EPFL_DLAV/GLPDepth/datasets/')#../../../work/scitas-share/datasets/Vita/civil-459/
         parser.add_argument('--dataset',      type=str, default='kitti',
                             choices=['nyudepthv2', 'kitti', 'imagepath', 'DrivingStereo'])
         parser.add_argument('--exp_name',     type=str, default='test')
