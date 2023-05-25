@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 from datetime import datetime
+from collections import OrderedDict
 
 import torch
 import torch.optim as optim
@@ -39,7 +40,18 @@ def main():
         os.makedirs(result_dir)
     
     model = GLPDepth(max_depth=args.max_depth, is_train=True)
-
+    
+    # TODO load a trained model
+    try:
+        ckpt_dir = './ckpt/model_14epochs.ckpt'
+        model_weight = torch.load(ckpt_dir) # load weight for CPU
+        if 'module' in next(iter(model_weight.items()))[0]:
+            model_weight = OrderedDict((k[7:], v) for k, v in model_weight.items())
+        model.load_state_dict(model_weight)
+    except Exception as e:
+        print('THE .CKPT MODEL WAS NOT LOADED')
+        print(e)
+        
     # CPU-GPU agnostic settings
     if args.gpu_or_cpu == 'gpu':
         device = torch.device('cuda')
@@ -68,14 +80,22 @@ def main():
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=args.batch_size,
                                                shuffle=True, num_workers=args.workers, 
                                                pin_memory=True, drop_last=True)
-    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=1, shuffle=False,
+    val_loader = torch.utils.data.DataLoader(val_dataset, batch_size=args.batch_size, shuffle=True,
                                              pin_memory=True)
 
     # Training settings
     criterion_d = SiLogLoss()
-    optimizer = optim.Adam(model.parameters(), args.lr)
+    # TODO : CHECK PERFORMENCE WITH WEIGHT DECAY
+    # optimizer = optim.Adam(model.parameters(), args.lr, weight_decay=5e-5)
+    optimizer = SGD(model.parameters(), lr=args.lr, momentum=0.95)
+
     # TODO: Adding the lr scheduler
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)  # add this line
+    #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10, threshold=0.0003, threshold_mode='abs')
+    print('CyclicLR scheduler with step up size = 10 and SGD optimizer')
+    scheduler = optim.lr_scheduler.CyclicLR(optimizer, base_lr=args.lr/1000,
+                                                  max_lr=args.lr,step_size_up=10,
+                                                  mode="triangular2")
+
 
     global global_step
     global_step = 0
@@ -83,10 +103,9 @@ def main():
     # Perform experiment
     for epoch in range(1, args.epochs + 1):
         print('\nEpoch: %03d - %03d' % (epoch, args.epochs))
-        loss_train = train(train_loader, model, criterion_d, optimizer=optimizer, 
+        loss_train = train(train_loader, model, criterion_d, optimizer=optimizer,scheduler=scheduler, 
                            device=device, epoch=epoch, args=args)
         writer.add_scalar('Training loss', loss_train, epoch)
-        scheduler.step()  # TODO : Test if the scheduler works
 
         if epoch % args.val_freq == 0:
             results_dict, loss_val = validate(val_loader, model, criterion_d, 
@@ -107,12 +126,15 @@ def main():
                 writer.add_scalar(each_metric, each_results, epoch)
 
 
-def train(train_loader, model, criterion_d, optimizer, device, epoch, args):    
+def train(train_loader, model, criterion_d, optimizer, scheduler, device, epoch, args):    
     global global_step
     model.train()
     depth_loss = logging.AverageMeter()
     # half_epoch = args.epochs // 2
-
+    # loss_sum
+    loss_sum = 0
+    num_batches = len(train_loader)
+    
     for batch_idx, batch in enumerate(train_loader):      
         global_step += 1
         # TODO : create a better lr scheduler
@@ -144,6 +166,16 @@ def train(train_loader, model, criterion_d, optimizer, device, epoch, args):
                             (depth_loss.val, depth_loss.avg)))
         # Step optimizer
         optimizer.step()
+        
+        # TODO Here to implement the lr scheduler
+        #loss_sum += depth_loss.avg
+        # Step the scheduler check 30 times for a whole epoch
+        if global_step % int(num_batches/30)== 0:
+            #scheduler.step(loss_sum/(num_batches/30))
+            #loss_sum = 0
+            #scheduler.step(depth_loss.avg)
+            scheduler.step()
+            print('learning_rate : ', optimizer.param_groups[0]['lr'])
 
     return loss_d
 
@@ -153,8 +185,8 @@ def validate(val_loader, model, criterion_d, device, epoch, args, log_dir):
     model.eval()
 
     if args.save_model:
-        # Save weight each 2 epochs
-        if epoch % 10 == 0:
+        # Save weight each 1 epochs
+        if epoch % 1 == 0:
             torch.save(model.state_dict(), os.path.join(
                 log_dir, 'epoch_%02d_model.ckpt' % epoch))
 

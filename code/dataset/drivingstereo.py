@@ -21,12 +21,12 @@ class drivingstereo(BaseDataset):
         
         if is_train:
             # txt_path += '/drivingstereo_all_train.txt' # '/drivingstereo_all_train.txt' for scitas
-            # txt_path += '/drivingstereo_left_train.txt' # '/drivingstereo_all_train.txt' for scitas
-            txt_path += '/small_drivingstereo_left_train.txt' # '/drivingstereo_all_train.txt' for scitas
+            txt_path += '/drivingstereo_left_train.txt' # '/drivingstereo_all_train.txt' for scitas
+            #txt_path += '/small_drivingstereo_left_train.txt' # '/drivingstereo_all_train.txt' for scitas
         else:
             # txt_path += '/drivingstereo_all_test.txt'        
-            # txt_path += '/drivingstereo_left_test.txt'        
-            txt_path += '/small_drivingstereo_left_test.txt' # Just for overfitting the dataset
+            txt_path += '/drivingstereo_left_test.txt'        
+            #txt_path += '/small_drivingstereo_left_test.txt' # Just for overfitting the dataset
         
         self.filenames_list = self.readTXT(txt_path)
         phase = 'train' if is_train else 'test'        
