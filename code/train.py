@@ -87,14 +87,15 @@ def main():
     criterion_d = SiLogLoss()
     # TODO : CHECK PERFORMENCE WITH WEIGHT DECAY
     # optimizer = optim.Adam(model.parameters(), args.lr, weight_decay=5e-5)
-    optimizer = SGD(model.parameters(), lr=args.lr, momentum=0.95)
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.95)
 
     # TODO: Adding the lr scheduler
     #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10, threshold=0.0003, threshold_mode='abs')
     print('CyclicLR scheduler with step up size = 10 and SGD optimizer')
-    scheduler = optim.lr_scheduler.CyclicLR(optimizer, base_lr=args.lr/1000,
-                                                  max_lr=args.lr,step_size_up=10,
-                                                  mode="triangular2")
+    # SGD scheduler
+    scheduler = optim.lr_scheduler.CyclicLR(optimizer, base_lr=0.005, max_lr=0.05, step_size_up=2500, 
+                                            mode='triangular2', gamma=1.0, scale_mode='cycle', 
+                                            cycle_momentum=True, base_momentum=0.8, max_momentum=0.9)
 
 
     global global_step
@@ -167,6 +168,8 @@ def train(train_loader, model, criterion_d, optimizer, scheduler, device, epoch,
         # Step optimizer
         optimizer.step()
         
+        # scheduler step
+        scheduler.step()
         # TODO Here to implement the lr scheduler
         #loss_sum += depth_loss.avg
         # Step the scheduler check 30 times for a whole epoch
@@ -174,7 +177,6 @@ def train(train_loader, model, criterion_d, optimizer, scheduler, device, epoch,
             #scheduler.step(loss_sum/(num_batches/30))
             #loss_sum = 0
             #scheduler.step(depth_loss.avg)
-            scheduler.step()
             print('learning_rate : ', optimizer.param_groups[0]['lr'])
 
     return loss_d
