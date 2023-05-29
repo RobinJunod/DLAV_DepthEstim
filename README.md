@@ -20,23 +20,24 @@ $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/
 
 
 #### Testing
-!!! Need weights .ckpt inside the folder ckpt
+
+Need weights .ckpt inside the folder ckpt
 ```
 $ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/????????.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
 ```
 
 list of usefull arguments for training :
 
-| argument | type     | default |
+| argument | type     | default   
 |----------|----------|----------|
-|  --epochs  |  int   |   default=25)  |
-|  --lr     |  float  |  default=1e-4)   |
-|  --crop_h  |  int   |   default=448)  |
-|  --crop_w  |  int   |   default=576)          |
-|  --log_dir  |  str   |   default='./logs')  |
-    
---val_freq, type=int, default=1)
---save_freq, type=int, default=10)
+|  --epochs  |  int   |   25     |
+|  --lr     |  float  |  1e-4    |
+|  --crop_h  |  int   |   448    |
+|  --crop_w  |  int   |   576    |
+|  --log_dir  |  str   |   ./logs|
+|  --val_freq |  int   |   1    |
+|  --save_freq  |  int   |   10|    
+
 --save_model  --> save the model into a .ckpt for every 10 epochs      
 --save_result --> save the results of the validation part (depth map from the model after every epochs)
 
