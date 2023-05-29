@@ -14,7 +14,8 @@ The model was trained using the Driving stero dataset in odrer to take advantage
 The Driving stero dataset contains more than 170'000 training sample, yet it is not used for monocular depth estinmation. For this reason, we trained the model on it to hopefully get some better results. 
 
 #### Learning Rate Scheduler
-Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was a 
+Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was a ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/ed797a43-6e2b-483d-921a-6d0d6a364d1a)
+
 
 #### Other contributions
 
@@ -23,7 +24,7 @@ Multiple LR scheduler were implemented. First the 'reduce on plateau' LR schedul
 We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue gradiant clipping was implemented. 
 
 
-#### Training
+### Training
 ```
 $ python ./code/train.py --dataset DrivingStereo --data_path ../../../work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --crop_h 352 --crop_w 704
 ```
@@ -32,7 +33,7 @@ $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/
 ```
 
 
-#### Testing
+### Testing
 
 Need weights .ckpt inside the folder ckpt
 ```
@@ -59,7 +60,7 @@ list of usefull arguments for testing :
 --save_visualize --> save depth maps
 
 
-#### Activate environment
+### Activate environment
 create environment https://scitas-data.epfl.ch/confluence/display/DOC/Python+Virtual+Environments
 Install all the packages in the requierments.txt 
 ```
