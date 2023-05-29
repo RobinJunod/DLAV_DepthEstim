@@ -3,12 +3,25 @@ Estimation of depth using the GLPDepth code and the drivingstereo dataset.
 The inital code GLPDepth was firstly trained on nyudepth which contains indoor imagers. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the dataaugmenetation parameters.
 Description of the dataset, label format, where/how to acquire it.
 
-##### Data DrivingStereo
-We trained our model using the Driving stero dataset in odrer to take advantage of the large number of sample this dataset has. We have then test our model on the kitti dataset. 
-What data do I need
-to train your model? How do I get it? In what shape?
-##### Problem faced
-We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue we tuned the learning rate, and the learning rate scheduler. 
+### Contributions
+Two mains contributions were impleemnted to improve the model. First the model was trained on another much larger dataset. Second, multiple learning rate scheduler were implemented to find better minimizers. Additionally, L2-Regularization as well as data augmentation tuning were performed.
+
+#### Data DrivingStereo
+The model was trained using the Driving stero dataset in odrer to take advantage of the large number of sample this dataset has. Then it was tested on the kitti dataset. The DrivingStereo dataset is originally used for depth estimation using 2 cameras. In this project, only the left camera images were used to achieve monocular depth estimation.
+
+#### Data DrivingStereo
+
+The Driving stero dataset contains more than 170'000 training sample, yet it is not used for monocular depth estinmation. For this reason, we trained the model on it to hopefully get some better results. 
+
+#### Learning Rate Scheduler
+Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was a 
+
+#### Other contributions
+
+
+#### Problem faced
+We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue gradiant clipping was implemented. 
+
 
 #### Training
 ```
@@ -37,10 +50,10 @@ list of usefull arguments for training :
 |  --log_dir  |  str   |   ./logs|
 |  --val_freq |  int   |   1    |
 |  --save_freq  |  int   |   10|    
-
---save_model  --> save the model into a .ckpt for every 10 epochs      
---save_result --> save the results of the validation part (depth map from the model after every epochs)
-
+```
+$ --save_model  #save the model into a .ckpt for every 10 epochs      
+$ --save_result  #save the results of the validation part (depth map from the model after every epochs)
+```
 list of usefull arguments for testing :
 --do_evaluate --> returns metrics
 --save_visualize --> save depth maps
