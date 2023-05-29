@@ -26,11 +26,15 @@ $ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_d
 ```
 
 list of usefull arguments for training :
---epochs,     type=int,   default=25)
---lr,         type=float, default=1e-4)
---crop_h,     type=int,   default=448)
---crop_w,     type=int,   default=576)        
---log_dir,    type=str,   default='./logs')
+
+| argument | type     | default |
+|----------|----------|----------|
+|  --epochs  |  int   |   default=25)  |
+|  --lr     |  float  |  default=1e-4)   |
+|  --crop_h  |  int   |   default=448)  |
+|  --crop_w  |  int   |   default=576)          |
+|  --log_dir  |  str   |   default='./logs')  |
+    
 --val_freq, type=int, default=1)
 --save_freq, type=int, default=10)
 --save_model  --> save the model into a .ckpt for every 10 epochs      
