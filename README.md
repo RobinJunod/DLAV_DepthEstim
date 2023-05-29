@@ -14,11 +14,15 @@ The model was trained using the Driving stero dataset in odrer to take advantage
 The Driving stero dataset contains more than 170'000 training sample, yet it is not used for monocular depth estinmation. For this reason, we trained the model on it to hopefully get some better results. 
 
 #### Learning Rate Scheduler
-Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was a ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/ed797a43-6e2b-483d-921a-6d0d6a364d1a)
+Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was the CyclicLR (triangle2) from the pytorch library. This scheduler enables a balance between low and high learning rate. By using higher learning rates, the model can explore different regions of the loss landscape, while lower learning rates allow it to exploit the more promising areas. This dynamic adjustment can help find better optima and avoid getting stuck in suboptimal solutions. The dynamic of this scheduler is represented by the picture below.
+
+![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/ed797a43-6e2b-483d-921a-6d0d6a364d1a)
+
 
 
 #### Other contributions
 
+Additinal technics were used to improve the model. For instance, a L2 regularization along with the 'reduce on plateau' scheduler was implemented to mitigate overfitting and enhance the model's generalization capability. Moreover, some data augmentation tuning on the random cropping were done.
 
 #### Problem faced
 We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue gradiant clipping was implemented. 
