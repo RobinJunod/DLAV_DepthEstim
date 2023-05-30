@@ -37,18 +37,19 @@ Some fine tuning were also made on the data augmentation part like random croppi
 
 During the training phase on the entire dataset, we ran into an issue with our loss function. It was behaving well initially, reaching a good point, but then it unexpectedly exploded, ending up at a "NaN" values. This problem was solved by implementing gradient clipping, a technique that helps manage extreme changes in the loss function, keeping the training process more stable. 
 
+## 2 Results
+todo put the graphs and table here:
 
+## 3 Guide to use the model
 
-## 2 Guide to use the model
-
-### 2.1 Environment
+### 3.1 Environment
 The environment requierments are store in the .txt file and can be easly created using anaconda. To 
 create an environment on scitas follow : https://scitas-data.epfl.ch/confluence/display/DOC/Python+Virtual+Environments
 To activate the env on scitas execute this command
 ```
 $ source venvs/<env name>/bin/activate
 ```
-### 2.2 Training
+### 3.2 Training
 
 For the trainnig part, some pretrained weight for the encoder can be loaded as a pre-training (mit_b4.pth). If they don't exist they will be downloaded automatically. 
 ```bash
@@ -71,7 +72,7 @@ $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/
 ```
 
 
-### 2.3 Testing
+### 3.3 Testing
 
 For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
 ```bash
@@ -114,7 +115,7 @@ save depth maps
 --save_visualize 
 ```
 
-## 3 Reference
+## 4 Reference
  Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth
   
 [^1]: Doyeon Kim1, Woonghyun, Ka Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth, [URL](https://github.com/vinvino02/GLPDepth)
