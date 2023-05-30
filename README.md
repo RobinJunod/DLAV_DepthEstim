@@ -6,7 +6,7 @@ The inital code GLPDepth was firstly trained on nyudepth which contains indoor i
 
 ## 0 GLP Depth
 
-The model choosen for this project is the GLP Depth model. This model was chosen due to his really good performence, it's simple structure as weel as it's light weight.
+The model this project is based on is the GLP Depth model [^1]. This model was chosen due to his really good performence, it's simple structure as well as it's light weight.
 ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/6f4cc877-c9f5-48f9-84a4-2024c6af3263)
 The GLP model has a hierarchical transformer encoder to capture and convey the global context. Simultaneously, a lightweight yet powerful decoder generate an estimated depth map while considering local connectivity. 
 
@@ -48,7 +48,7 @@ To activate the env on scitas execute this command
 ```
 $ source venvs/<env name>/bin/activate
 ```
-### Training
+### 2.2 Training
 
 For the trainnig part, some pretrained weight for the encoder can be loaded as a pre-training (mit_b4.pth). If they don't exist they will be downloaded automatically. 
 ```bash
@@ -71,7 +71,7 @@ $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/
 ```
 
 
-### Testing
+### 2.3 Testing
 
 For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
 ```bash
@@ -114,6 +114,8 @@ save depth maps
 --save_visualize 
 ```
 
-## Reference
+## 3 Reference
+ Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth
   
+[^1]: Doyeon Kim1, Woonghyun, Ka Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth, [URL](https://github.com/vinvino02/GLPDepth)
 
