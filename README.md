@@ -1,20 +1,26 @@
 # DLAV_DepthEstim
+One of the challenges in monocular depth estimation is that it is inherently ill-posed, as information about depth from a single image is ambiguous. However, by using the precise depth labels obtained from the avaiable dataset, we provided our model with a robust ground truth against which to learn.
 Estimation of depth using the GLPDepth code and the drivingstereo dataset.
-The inital code GLPDepth was firstly trained on nyudepth which contains indoor imagers. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the dataaugmenetation parameters.
-Description of the dataset, label format, where/how to acquire it.
+The inital code GLPDepth was firstly trained on nyudepth which contains indoor imagers. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the data augmenetation parameters.
+
 
 ### Contributions
 Two mains contributions were impleemnted to improve the model. First the model was trained on another much larger dataset. Second, multiple learning rate scheduler were implemented to find better minimizers. Additionally, L2-Regularization as well as data augmentation tuning were performed.
 
 #### Data DrivingStereo
-The model was trained using the Driving stero dataset in odrer to take advantage of the large number of sample this dataset has. Then it was tested on the kitti dataset. The DrivingStereo dataset is originally used for depth estimation using 2 cameras. In this project, only the left camera images were used to achieve monocular depth estimation.
+The model was trained using a big collection of examples from the DrivingStereo dataset. This dataset is huge, so it provided a lot for the model to learn from. After training, it was then put to the test with the KITTI dataset, which is another set of examples from a different collection.
+Usually, the DrivingStereo dataset is used for estimating depth using two cameras, kind of like how our two eyes work together to judge depth. But for this project, a different approach was taken. Only pictures from the left camera were used with the aim of guessing depth from a single image. This is quite a challenging task, but it's also really useful for things like self-driving cars and robots.
 
 #### Data DrivingStereo
 
-The Driving stero dataset contains more than 170'000 training sample, yet it is not used for monocular depth estinmation. For this reason, we trained the model on it to hopefully get some better results. 
+The Driving stero dataset contains more than 170'000 training sample covering a diverse set of driving scenarios. A technique called model-guided filtering is used to create precise labels of depth from multiple LiDAR frames, ensuring high-quality and accurate estimations.
+yet it is not used for monocular depth estinmation. For this reason, we trained the model on it to hopefully get some better results. 
 
 #### Learning Rate Scheduler
-Multiple LR scheduler were implemented. First the 'reduce on plateau' LR scheduler. This one deacrease the LR by a certain factor each time the loss stop deacreasing. By doing that the model will achieve faster convergence during the training process. However, this scheduler is sensitive to the initial learning rate and other hyperparameters. The second Scheduler implemented was the CyclicLR (triangle2) from the pytorch library. This scheduler enables a balance between low and high learning rate. By using higher learning rates, the model can explore different regions of the loss landscape, while lower learning rates allow it to exploit the more promising areas. This dynamic adjustment can help find better optima and avoid getting stuck in suboptimal solutions. The dynamic of this scheduler is represented by the picture below.
+
+Several learning rate (LR) schedulers were implemented. The first one was the 'reduce on plateau' LR scheduler. Its job is to lower the learning rate by a certain amount whenever the model's loss stops getting smaller. This strategy can help the model learn quicker during the training stage. But one thing to note is that this scheduler is quite sensitive to the initial learning rate and to the hyperparameters.
+
+The second scheduler used was the CyclicLR with 'triangle2' from the PyTorch library. This one alternates between a low and a high learning rate. The benefit of using higher learning rates is that it allows the model to explore different areas of the loss landscape. On the other hand, lower learning rates let the model dig deeper into the more promising areas. This flexibility can help find better solutions and prevent the model from getting stuck in non perfect optima. You can see how this scheduler works from the picture below.
 
 ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/ed797a43-6e2b-483d-921a-6d0d6a364d1a)
 
@@ -22,10 +28,13 @@ Multiple LR scheduler were implemented. First the 'reduce on plateau' LR schedul
 
 #### Other contributions
 
-Additinal technics were used to improve the model. For instance, a L2 regularization along with the 'reduce on plateau' scheduler was implemented to mitigate overfitting and enhance the model's generalization capability. Moreover, some data augmentation tuning on the random cropping were done.
+Some additional techniques were also used to make the model better. For example, L2 regularization was paired with the 'reduce on plateau' scheduler to help prevent overfitting. By using these technique, we're aiming to improve how well the model can generalize to new situations.
+
+Some fine tuning were also made on the data augmentation part like random cropping. This is a type of data augmentation, which slightly altered the pictures to make the model more robust and able to handle a wider range of situations.
 
 #### Problem faced
-We had during training on the whole dataset issue with our loss that went to a good point an then exploded to finally be nan value. To solve this issue gradiant clipping was implemented. 
+
+During the training phase on the entire dataset, we ran into an issue with our loss function. It was behaving well initially, reaching a good point, but then it unexpectedly exploded, ending up at a "NaN" values. This problem was solved by implementing gradient clipping, a technique that helps manage extreme changes in the loss function, keeping the training process more stable. 
 
 
 ### Training
@@ -55,14 +64,25 @@ list of usefull arguments for training :
 |  --log_dir  |  str   |   ./logs|
 |  --val_freq |  int   |   1    |
 |  --save_freq  |  int   |   10|    
-```
-$ --save_model  #save the model into a .ckpt for every 10 epochs      
-$ --save_result  #save the results of the validation part (depth map from the model after every epochs)
-```
-list of usefull arguments for testing :
---do_evaluate --> returns metrics
---save_visualize --> save depth maps
 
+ save the model into a .ckpt for every 10 epochs 
+```
+$ --save_model
+```
+ save the results of the validation part (depth map from the model after every epochs)
+```
+$ --save_result 
+```
+
+list of usefull arguments for testing :
+returns metrics
+```
+--do_evaluate
+```
+save depth maps
+```
+--save_visualize 
+```
 
 ### Activate environment
 create environment https://scitas-data.epfl.ch/confluence/display/DOC/Python+Virtual+Environments
