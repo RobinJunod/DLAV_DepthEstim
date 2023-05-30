@@ -50,20 +50,19 @@ $ source venvs/<env name>/bin/activate
 ```
 ### Training
 
-For the trainnig part, some pretrained weight for the encoder can be loaded as a pretrianing. They 
+For the trainnig part, some pretrained weight for the encoder can be loaded as a pre-training (mit_b4.pth). If they don't exist they will be downloaded automatically. 
 ```bash
-  data
-  ├── nuscenes/
-  │   ├── maps/
-  │   ├── samples/
-  │   ├── sweeps/
-  │   ├── v1.0-test/
-  |   ├── v1.0-trainval/
-  |   ├── nuscenes_infos_temporal_train.pkl
-  |   ├── nuscenes_infos_temporal_val.pkl
+  code/
+  ├── models/
+  │   ├── configs/  
+  │   ├── dataset/  
+  │   ├── weights/
+  │   │   ├── mit_b4.pth/
+  │   ├── utils/
 ```
   
 
+Here below are the commands that should work using the avaiable training dataset on the scitas server.
 ```
 $ python ./code/train.py --dataset DrivingStereo --data_path ../../../work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --crop_h 352 --crop_w 704
 ```
@@ -74,14 +73,21 @@ $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/
 
 ### Testing
 
-Need weights .ckpt inside the folder ckpt
+For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
+```bash
+  ckpt/
+  ├── <model to test>.ckpt
+  code/
+  datasets/
 ```
-$ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/????????.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
+Use this command by replacing the <model to test> by the actual name of the .ckpt model
+```
+$ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/<model to test>.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
 ```
 
-list of usefull arguments for training :
+##### list of usefull arguments for training :
 
-| argument | type     | default   
+| argument | type     | default  |
 |----------|----------|----------|
 |  --epochs  |  int   |   25     |
 |  --lr     |  float  |  1e-4    |
@@ -91,16 +97,14 @@ list of usefull arguments for training :
 |  --val_freq |  int   |   1    |
 |  --save_freq  |  int   |   10|    
 
- save the model into a .ckpt for every 10 epochs 
+To save the model into a .ckpt (this can be tuned to save the weight at each epochs)
 ```
 $ --save_model
 ```
- save the results of the validation part (depth map from the model after every epochs)
+save the results of the validation part (depth map from the model after every epochs)
 ```
 $ --save_result 
 ```
-
-list of usefull arguments for testing :
 returns metrics
 ```
 --do_evaluate
@@ -110,5 +114,6 @@ save depth maps
 --save_visualize 
 ```
 
-
+## Reference
+  
 
