@@ -24,6 +24,7 @@ The second scheduler used was the CyclicLR with 'triangle2' from the PyTorch lib
 
 ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/ed797a43-6e2b-483d-921a-6d0d6a364d1a)
 
+![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/92f9e132-6059-4ec4-90bc-7dac600f88d2)
 
 
 #### Other contributions
