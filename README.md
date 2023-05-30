@@ -6,7 +6,7 @@ The inital code GLPDepth was firstly trained on nyudepth which contains indoor i
 
 ## 0 GLP Depth
 
-The model this project is based on is the GLP Depth model [^1]. This model was chosen due to his really good performence, it's simple structure as well as it's light weight.
+The model this project is based on is the GLP Depth model [^1]. This model was chosen due to his really good performence, it's simple structure as well as it's light weight. Even though the GLP model is not the n°1 state of the art, its structure has been retrieved by this paper [^2] which is the current state of the art on the Kitti dataset.
 ![image](https://github.com/RobinJunod/DLAV_DepthEstim/assets/82818451/6f4cc877-c9f5-48f9-84a4-2024c6af3263)
 The GLP model has a hierarchical transformer encoder to capture and convey the global context. Simultaneously, a lightweight yet powerful decoder generate an estimated depth map while considering local connectivity. 
 
@@ -119,3 +119,5 @@ save depth maps
   
 [^1]: Doyeon Kim1, Woonghyun, Ka Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth, [URL](https://github.com/vinvino02/GLPDepth)
 
+[^2]:  Revealing the Dark Secrets of Masked Image Modeling , [URL] (https://github.com/SwinTransformer/MIM-Depth-Estimation)
+  
