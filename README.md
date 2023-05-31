@@ -62,7 +62,9 @@ In order to compare our results with the GLP Depth original best weights, we eva
 
 
 
-Below we can see the results of our model's improvments on a monocular video. This result can be done using the inference.py file.
+Below we can see the results of our model's improvments on a monocular video. To output this kind of video use the inference.py file.
+
+
 ![Comparaison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/blob/main/result%20demo/result_DLAV_gif.gif)
 
 ## 3 Guide to use the model
