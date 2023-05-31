@@ -40,6 +40,12 @@ During the training phase on the entire dataset, we ran into an issue with our l
 ## 2 Results
 
 
+| Results on the DS  test dataset | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
+|---------------------------------|--------|--------|--------|-----------|----------|------|----------|
+| ReduceLROnPlateau               | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
+| ReduceLROnPlateau + L2 reg.     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
+| CycilcLR (triangle2)            |  0.9746   | 0.9960 |0.9989 | 0.0601   | 0.2733 |3.2714  |0.0890   |
+
 ![Comparaison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/blob/main/result%20demo/result_DLAV_gif.gif)
 
 ## 3 Guide to use the model
