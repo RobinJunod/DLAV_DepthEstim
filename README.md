@@ -40,7 +40,7 @@ During the training phase on the entire dataset, we ran into an issue with our l
 ## 2 Results
 
 
-![Comaraison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/tree/main/result%20demo/result_DLAV_gif.gif)
+![Comaraison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/tree/main/result%20demo/reslt_DLAV_gif.gif)
 
 ## 3 Guide to use the model
 
