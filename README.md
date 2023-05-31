@@ -48,14 +48,14 @@ Below is the presentation of the results obtained using different learning rate 
 In order to compare our results with the GLP Depth original best weights, we evaluated our model on the Kitti dataset. To ensure fairness, we also tested the best GLP model on the driving stereo dataset. The results indicate that our model demonstrated a better fit for the driving stereo testing images compared to the GLP best model. However, it performed worse when tested on the Kitti test data in comparison to the GLP best model.
 
 |                               Tested on KITTI Eigen split                       |
-| Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
+| On KITTI | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
 |------------|--------|--------|--------|-----------|----------|------|----------|
 | GLP Depth original             |  0.9526 | 0.9928 | 0.9984 | 0.0658  | 0.2744  |2.8821  | 0.1000  |
 | Our contribution     |  0.1237   |0.7875  |0.9847  | 0.4574 |3.2735  |7.5408  | 0.3872 |
 
 
 |                          Tested on Driving Stereo                 |
-| Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
+| On Driving Stereo | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
 |------------|--------|--------|--------|-----------|----------|------|----------|
 | GLP Depth original   |  0.1462 |0.8621 |0.9759|0.2901 |2.5209 |9.4069 |0.3763  |
 | Our contribution     |0.9778  |0.9971  |0.9991  | 0.0641  |0.2772  |3.1074 | 0.0839|
@@ -76,7 +76,16 @@ To activate the env on scitas execute this command
 ```
 $ source venvs/<env name>/bin/activate
 ```
-### 3.2 Training
+### 3.2 Datasets and Weights
+
+To download the weights of the differnents dataset please refer to these website. For the kitti dataset [Kitti](https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction). For the Driving stereo Dataset : 
+[Driving Stereo](https://drivingstereo-dataset.github.io/) 
+#### Weights
+Download the weights (.ckpt) and place it in the folder "ckpt".
+The best weight of the orginial GLP depth model trained on kitti can be found at this adress : [GLP Depth best weights](https://drive.google.com/drive/folders/17yYbLZS2uQ6UVn5ET9RhVL0y_X3Ipl5_)
+Our contribution best resutls can be found at this : [Our contribution best weight](https://drive.google.com/drive/folders/1NLtFeM-8TR6cV9IFNkjtCXBs3TGURbgp?usp=sharing)
+
+### 3.3 Training
 
 For the trainnig part, some pretrained weight for the encoder can be loaded as a pre-training (mit_b4.pth). If they don't exist they will be downloaded automatically. 
 ```bash
@@ -88,7 +97,7 @@ For the trainnig part, some pretrained weight for the encoder can be loaded as a
   │   │   ├── mit_b4.pth/
   │   ├── utils/
 ```
-  
+ 
 
 Here below are the commands that should work using the avaiable training dataset on the scitas server.
 ```
@@ -119,7 +128,7 @@ save the results of the validation part (depth map from the model after every ep
 $ --save_result 
 ```
 
-### 3.3 Testing
+### 3.4 Testing / Inference
 
 For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
 ```bash
