@@ -41,16 +41,16 @@ def main():
     
     model = GLPDepth(max_depth=args.max_depth, is_train=True)
     
-    # TODO load a trained model
-    try:
-        ckpt_dir = './ckpt/model_14epochs.ckpt'
-        model_weight = torch.load(ckpt_dir) # load weight for CPU
-        if 'module' in next(iter(model_weight.items()))[0]:
-            model_weight = OrderedDict((k[7:], v) for k, v in model_weight.items())
-        model.load_state_dict(model_weight)
-    except Exception as e:
-        print('THE .CKPT MODEL WAS NOT LOADED')
-        print(e)
+    # UNCOMMENT To continue the model training from another trained one
+    # try:
+    #     ckpt_dir = './ckpt/model_14epochs.ckpt'
+    #     model_weight = torch.load(ckpt_dir) # load weight for CPU
+    #     if 'module' in next(iter(model_weight.items()))[0]:
+    #         model_weight = OrderedDict((k[7:], v) for k, v in model_weight.items())
+    #     model.load_state_dict(model_weight)
+    # except Exception as e:
+    #     print('THE .CKPT MODEL WAS NOT LOADED')
+    #     print(e)
         
     # CPU-GPU agnostic settings
     if args.gpu_or_cpu == 'gpu':
@@ -85,11 +85,12 @@ def main():
 
     # Training settings
     criterion_d = SiLogLoss()
-    # TODO : CHECK PERFORMENCE WITH WEIGHT DECAY
+    
+    # Choose optimizer
     # optimizer = optim.Adam(model.parameters(), args.lr, weight_decay=5e-5)
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.95)
 
-    # TODO: Adding the lr scheduler
+    #  Adding the lr scheduler
     #scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10, threshold=0.0003, threshold_mode='abs')
     print('CyclicLR scheduler with step up size = 10 and SGD optimizer')
     # SGD scheduler
@@ -138,7 +139,7 @@ def train(train_loader, model, criterion_d, optimizer, scheduler, device, epoch,
     
     for batch_idx, batch in enumerate(train_loader):      
         global_step += 1
-        # TODO : create a better lr scheduler
+        # OLD LR SCHEDULER
         # for param_group in optimizer.param_groups:
         #     if global_step < 2019 * half_epoch:
         #         current_lr = (1e-4 - 3e-5) * (global_step /
@@ -170,8 +171,9 @@ def train(train_loader, model, criterion_d, optimizer, scheduler, device, epoch,
         
         # scheduler step
         scheduler.step()
-        # TODO Here to implement the lr scheduler
-        #loss_sum += depth_loss.avg
+        
+        # LR printing
+        # loss_sum += depth_loss.avg
         # Step the scheduler check 30 times for a whole epoch
         if global_step % int(num_batches/30)== 0:
             #scheduler.step(loss_sum/(num_batches/30))
