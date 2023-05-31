@@ -2,7 +2,7 @@
 
 Guessing depth from just one picture is really tricky as information about depth from a single image is ambiguous. That's because one picture doesn't give us enough clues about how far the objects are, usually depth estimation is easier done with a stereo camera. However, by using the precise depth labels obtained from the avaiable dataset, we provided our model with a robust ground truth against which to learn.
 The inital code GLPDepth was firstly trained on nyu depth v2 which contains indoor images. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the data augmenetation parameters.
-
+> Autors of this project, Axel Béguelin and Robin Junod
 ## 0 GLP Depth
 
 The model this project is based on is the GLP Depth model [^1]. This model was chosen due to his really good performence, it's simple structure as well as it's light weight. Even though the GLP model is not the n°1 state of the art, its structure has been retrieved by the paper "Dark Secrets of Masked Image Modeling" [^2] which is the current state of the art on the Kitti dataset.
