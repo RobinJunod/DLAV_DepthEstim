@@ -78,12 +78,17 @@ $ source venvs/<env name>/bin/activate
 ```
 ### 3.2 Datasets and Weights
 
-To download the weights of the differnents dataset please refer to these website. For the kitti dataset [Kitti](https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction). For the Driving stereo Dataset : 
-[Driving Stereo](https://drivingstereo-dataset.github.io/) 
+To download the weights of the differnents dataset please refer to these website. 
+- For the kitti dataset : [Kitti](https://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction). 
+- For the Driving stereo Dataset : [Driving Stereo](https://drivingstereo-dataset.github.io/) 
+
 #### Weights
+
 Download the weights (.ckpt) and place it in the folder "ckpt".
-The best weight of the orginial GLP depth model trained on kitti can be found at this adress : [GLP Depth best weights](https://drive.google.com/drive/folders/17yYbLZS2uQ6UVn5ET9RhVL0y_X3Ipl5_)
-Our contribution best resutls can be found at this : [Our contribution best weight](https://drive.google.com/drive/folders/1NLtFeM-8TR6cV9IFNkjtCXBs3TGURbgp?usp=sharing)
+The best weight of the orginial GLP depth model trained on kitti can be found at this adress : 
+- [GLP Depth best weights](https://drive.google.com/drive/folders/17yYbLZS2uQ6UVn5ET9RhVL0y_X3Ipl5_)
+Our contribution best resutls can be found at this : 
+- [Our contribution best weight](https://drive.google.com/drive/folders/1NLtFeM-8TR6cV9IFNkjtCXBs3TGURbgp?usp=sharing)
 
 ### 3.3 Training
 
