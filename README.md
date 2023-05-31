@@ -47,18 +47,20 @@ Below is the presentation of the results obtained using different learning rate 
 
 In order to compare our results with the GLP Depth original best weights, we evaluated our model on the Kitti dataset. To ensure fairness, we also tested the best GLP model on the driving stereo dataset. The results indicate that our model demonstrated a better fit for the driving stereo testing images compared to the GLP best model. However, it performed worse when tested on the Kitti test data in comparison to the GLP best model.
 
-|                               GLP Depth original                                 |
+|                               Tested on KITTI Eigen split                       |
 | Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
 |------------|--------|--------|--------|-----------|----------|------|----------|
-| Kitti             | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
-| Driving Stereo     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
+| GLP Depth original             |  0.9526 | 0.9928 | 0.9984 | 0.0658  | 0.2744  |2.8821  | 0.1000  |
+| Our contribution     |  0.1237   |0.7875  |0.9847  | 0.4574 |3.2735  |7.5408  | 0.3872 |
 
 
-|                          GLP Depth with our contribution                  |
+|                          Tested on Driving Stereo                 |
 | Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
 |------------|--------|--------|--------|-----------|----------|------|----------|
-| Kitti             | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
-| Driving Stereo     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
+| GLP Depth original   |  0.1462 |0.8621 |0.9759|0.2901 |2.5209 |9.4069 |0.3763  |
+| Our contribution     |0.9778  |0.9971  |0.9991  | 0.0641  |0.2772  |3.1074 | 0.0839|
+
+
 
 Below we can see the results of our model's improvments on a monocular video. This result can be done using the inference.py file.
 ![Comparaison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/blob/main/result%20demo/result_DLAV_gif.gif)
