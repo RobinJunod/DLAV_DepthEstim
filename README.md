@@ -38,7 +38,10 @@ Some fine tuning were also made on the data augmentation part like random croppi
 During the training phase on the entire dataset, we ran into an issue with our loss function. It was behaving well initially, reaching a good point, but then it unexpectedly exploded, ending up at a "NaN" values. This problem was solved by implementing gradient clipping, a technique that helps manage extreme changes in the loss function, keeping the training process more stable. 
 
 ## 2 Results
-todo put the graphs and table here:
+
+[Comparaison with original GLPDepth](path/to/video.mp4)
+
+
 
 ## 3 Guide to use the model
 
