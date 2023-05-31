@@ -163,5 +163,7 @@ save depth maps
   
 [^1]: Doyeon Kim1, Woonghyun, Ka Global-Local Path Networks for Monocular Depth Estimation with Vertical CutDepth, [URL](https://github.com/vinvino02/GLPDepth)
 
+Current state of the art for monocular depth estimation on Kitti (2023)
+ 
 [^2]:  Revealing the Dark Secrets of Masked Image Modeling , [URL] (https://github.com/SwinTransformer/MIM-Depth-Estimation)
   
