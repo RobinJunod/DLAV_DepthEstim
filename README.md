@@ -148,6 +148,11 @@ Use this command by replacing the <model to test> by the actual name of the .ckp
 ```
 $ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/<model to test>.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
 ```
+  
+To use the inference.py file please follow this command. Replace <Image Path> and <Results Directory Path> by the actual values.
+```
+ $ python ./code/inference.py --data_path <Images Path> --result_dir <Results Directory Path>
+```
 
 returns metrics
 ```
