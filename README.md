@@ -1,8 +1,7 @@
 # Monocular Camera Depth Estimation 
 
 Guessing depth from just one picture is really tricky as information about depth from a single image is ambiguous. That's because one picture doesn't give us enough clues about how far the objects are, usually depth estimation is easier done with a stereo camera. However, by using the precise depth labels obtained from the avaiable dataset, we provided our model with a robust ground truth against which to learn.
-Estimation of depth using the GLPDepth code and the drivingstereo dataset.
-The inital code GLPDepth was firstly trained on nyudepth which contains indoor imagers. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the data augmenetation parameters.
+The inital code GLPDepth was firstly trained on nyu depth v2 which contains indoor images. Then it was trained on the kitti dataset and performs pretty well. Moreover, the GLPDepth code was reused to add some mask image modelling and achieve state of the art. As the kitti dataset is a small dataset, we trained it on the DrivingStereo dataset which is much larger and tunes some of the data augmenetation parameters.
 
 ## 0 GLP Depth
 
@@ -15,7 +14,7 @@ Two mains contributions were impleemnted to improve the model. First the model w
 
 ### 1.1 Data DrivingStereo
 
-The model was trained using a big collection of examples from the DrivingStereo dataset. This dataset is huge, so it provided a lot for the model to learn from. After training, it was then put to the test with the KITTI dataset, which is another set of examples from a different collection. Usually, the DrivingStereo dataset is used for estimating depth using two cameras, kind of like how our two eyes work together to judge depth. But for this project, a different approach was taken. Only pictures from the left camera were used with the aim of guessing depth from a single image. This is quite a challenging task, but it's also really useful for things like self-driving cars and robots.
+The model was trained using a big collection of examples from the DrivingStereo (DS) dataset. This dataset is huge, so it provided a lot for the model to learn from. After training, it was then put to the test with the KITTI dataset, which is another set of examples from a different collection. Usually, the DrivingStereo dataset is used for estimating depth using two cameras, kind of like how our two eyes work together to judge depth. But for this project, a different approach was taken. Only pictures from the left camera were used with the aim of guessing depth from a single image. This is quite a challenging task, but it's also really useful for things like self-driving cars and robots.
 
 
 ### 1.2 Learning Rate Scheduler
@@ -38,13 +37,17 @@ Some fine tuning were also made on the data augmentation part like random croppi
 During the training phase on the entire dataset, we ran into an issue with our loss function. It was behaving well initially, reaching a good point, but then it unexpectedly exploded, ending up at a "NaN" values. This problem was solved by implementing gradient clipping, a technique that helps manage extreme changes in the loss function, keeping the training process more stable. 
 
 ## 2 Results
-
+Below is the presentation of the results obtained using different learning rate (LR) schedulers during testing on the DrivingStereo dataset:
 
 | Results on the DS  test dataset | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
 |---------------------------------|--------|--------|--------|-----------|----------|------|----------|
 | ReduceLROnPlateau               | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
 | ReduceLROnPlateau + L2 reg.     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
 | CycilcLR (triangle2)            |  0.9746   | 0.9960 |0.9989 | 0.0601   | 0.2733 |3.2714  |0.0890   |
+
+In order to compare our results with the GLP Depth original best weights, we evaluated our model on the Kitti dataset. To ensure fairness, we also tested the best GLP model on the driving stereo dataset. The results indicate that our model demonstrated a better fit for the driving stereo testing images compared to the GLP best model. However, it performed worse when tested on the Kitti test data in comparison to the GLP best model.
+
+
 
 ![Comparaison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/blob/main/result%20demo/result_DLAV_gif.gif)
 
