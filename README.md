@@ -47,8 +47,20 @@ Below is the presentation of the results obtained using different learning rate 
 
 In order to compare our results with the GLP Depth original best weights, we evaluated our model on the Kitti dataset. To ensure fairness, we also tested the best GLP model on the driving stereo dataset. The results indicate that our model demonstrated a better fit for the driving stereo testing images compared to the GLP best model. However, it performed worse when tested on the Kitti test data in comparison to the GLP best model.
 
+|                               GLP Depth original                                 |
+| Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
+|------------|--------|--------|--------|-----------|----------|------|----------|
+| Kitti             | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
+| Driving Stereo     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
 
 
+|                          GLP Depth with our contribution                  |
+| Trained on | delta1 | delta2 | delta3 | Abs. Rel. | Sq. Rel. | RMSE | RMSE Log |
+|------------|--------|--------|--------|-----------|----------|------|----------|
+| Kitti             | 0.9735 | 0.9958 | 0.9989 | 0.0629  | 0.2808  |3.3034  | 0.0907  |
+| Driving Stereo     | 0.9580   |0.9928  |0.9978  | 0.0693  |0.3914  |3.8787  | 0.1054 |
+
+Below we can see the results of our model's improvments on a monocular video. This result can be done using the inference.py file.
 ![Comparaison of our result with the original one](https://github.com/RobinJunod/DLAV_DepthEstim/blob/main/result%20demo/result_DLAV_gif.gif)
 
 ## 3 Guide to use the model
@@ -82,21 +94,6 @@ $ python ./code/train.py --dataset DrivingStereo --data_path ../../../work/scita
 $ python ./code/train.py --dataset DrivingStereo --data_path /work/scitas-share/datasets/Vita/civil-459/ --max_depth 80.0 --max_depth_eval 80.0 --workers 1 --lr 0.00015 --epochs 8 --save_model --workers 4 
 ```
 
-
-### 3.3 Testing
-
-For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
-```bash
-  ckpt/
-  ├── <model to test>.ckpt
-  code/
-  datasets/
-```
-Use this command by replacing the <model to test> by the actual name of the .ckpt model
-```
-$ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/<model to test>.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
-```
-
 ##### list of usefull arguments for training :
 
 | argument | type     | default  |
@@ -117,6 +114,21 @@ save the results of the validation part (depth map from the model after every ep
 ```
 $ --save_result 
 ```
+
+### 3.3 Testing
+
+For the testing part, the model weight must be stored in .ckpt in the folder of the same name.
+```bash
+  ckpt/
+  ├── <model to test>.ckpt
+  code/
+  datasets/
+```
+Use this command by replacing the <model to test> by the actual name of the .ckpt model
+```
+$ python ./code/test.py --dataset DrivingStereo --data_path ./datasets/ --ckpt_dir ./ckpt/<model to test>.ckpt --do_evaluate  --max_depth 80.0 --max_depth_eval 80.0
+```
+
 returns metrics
 ```
 --do_evaluate
