@@ -87,6 +87,8 @@ To download the weights of the differnents dataset please refer to these website
 Download the weights (.ckpt) and place it in the folder "ckpt".
 The best weight of the orginial GLP depth model trained on kitti can be found at this adress : 
 - [GLP Depth best weights](https://drive.google.com/drive/folders/17yYbLZS2uQ6UVn5ET9RhVL0y_X3Ipl5_)
+
+
 Our contribution best resutls can be found at this : 
 - [Our contribution best weight](https://drive.google.com/drive/folders/1NLtFeM-8TR6cV9IFNkjtCXBs3TGURbgp?usp=sharing)
 
