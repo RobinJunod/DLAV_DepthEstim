@@ -39,7 +39,7 @@ During the training phase on the entire dataset, we ran into an issue with our l
 
 ## 2 Results
 
-[Comparaison with original GLPDepth]( result\ demo/result_DLAV.mp4)
+[Comparaison with original GLPDepth](result\ demo/result_DLAV.mp4)
 
 
 
